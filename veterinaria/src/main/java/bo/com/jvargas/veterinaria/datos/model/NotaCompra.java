@@ -1,17 +1,21 @@
 package bo.com.jvargas.veterinaria.datos.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Getter
 @Setter
+@ToString
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
+@Builder
 @Table(name = "nota_compra")
-public class NotaCompra {
+public class NotaCompra extends AuditableEntity implements Serializable {
     @Id
 @GeneratedValue
     @Column(name = "id", nullable = false)

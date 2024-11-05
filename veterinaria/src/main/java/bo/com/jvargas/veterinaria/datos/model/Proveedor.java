@@ -1,14 +1,17 @@
 package bo.com.jvargas.veterinaria.datos.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Getter
 @Setter
+@ToString
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
+@Builder
 @Table(name = "proveedor")
 public class Proveedor extends AuditableEntity implements Serializable {
     @Id

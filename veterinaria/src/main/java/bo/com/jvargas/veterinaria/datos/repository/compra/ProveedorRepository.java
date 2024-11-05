@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ProveedorRepository extends JpaRepository<Proveedor, Long> {
 
@@ -13,4 +14,6 @@ public interface ProveedorRepository extends JpaRepository<Proveedor, Long> {
             "from Proveedor p  " +
             "where p.deleted = false ")
     List<ProveedorDto> lista();
+
+    Optional<Proveedor> findByNombreAndDeletedFalse(String nombre);
 }
