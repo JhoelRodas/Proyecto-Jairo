@@ -77,4 +77,16 @@ public class DetalleServiceImpl implements DetalleService {
         detalle.setMonto(detalleDto.getMonto());
         return detalle;
     }
+
+    @Transactional
+    @Override
+    public void eliminarDetalle(Long idProducto, Long idNotaCompra) {
+        DetalleId detalleId = new DetalleId(idProducto, idNotaCompra);
+        Optional<Detalle> oDetalle = detalleRepository.findById(detalleId);
+
+        if (oDetalle.isEmpty())
+            throw new RuntimeException("Detalle no encontrado");
+
+        detalleRepository.delete(oDetalle.get());
+    }
 }
