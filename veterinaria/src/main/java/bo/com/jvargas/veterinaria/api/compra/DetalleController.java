@@ -6,10 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -39,6 +36,18 @@ public class DetalleController {
         } catch (RuntimeException e) {
             // Enviar mensaje de error en caso de fallo (e.g., si la cantidad excede el stock)
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+    }
+
+    @DeleteMapping
+    public ResponseEntity<?> eliminarDetalle(
+            @RequestParam("idProducto") Long idProducto,
+            @RequestParam("idNotaCompra") Long idNotaCompra) {
+        try {
+            service.eliminarDetalle(idProducto, idNotaCompra);
+            return ResponseEntity.noContent().build();
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
 }
