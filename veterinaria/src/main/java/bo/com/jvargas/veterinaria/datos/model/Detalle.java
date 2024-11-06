@@ -1,14 +1,17 @@
 package bo.com.jvargas.veterinaria.datos.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Getter
 @Setter
+@ToString
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
+@Builder
 @Table(name = "detalle")
 public class Detalle {
     @EmbeddedId

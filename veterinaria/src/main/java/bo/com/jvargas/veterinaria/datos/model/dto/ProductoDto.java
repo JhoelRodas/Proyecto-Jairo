@@ -19,7 +19,7 @@ public class ProductoDto implements Serializable {
     private BigDecimal precioUnitario;
     private Short stock;
     private String descripcion;
-    private Categoria idCategoria;
+    private Long idCategoria;
 
     public ProductoDto(Producto producto) {
         this.id = producto.getId();
@@ -27,7 +27,7 @@ public class ProductoDto implements Serializable {
         this.precioUnitario = producto.getPrecioUnitario();
         this.stock = producto.getStock();
         this.descripcion = producto.getDescripcion();
-        this.idCategoria = producto.getIdCategoria() != null ? producto.getIdCategoria() : null ;
+        this.idCategoria = producto.getIdCategoria() != null ? producto.getIdCategoria().getId() : null ;
     }
 
 }
