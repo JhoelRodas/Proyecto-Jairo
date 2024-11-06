@@ -39,6 +39,17 @@ public class DetalleController {
         }
     }
 
+    @PostMapping("/bulk")
+    public ResponseEntity<?> guardarDetalles(@RequestBody List<DetalleDto> detallesDto) {
+        try {
+            List<DetalleDto> detallesGuardados = service.insertarDetalles(detallesDto);
+            return ResponseEntity.status(HttpStatus.CREATED).body(detallesGuardados);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+    }
+
+
     @DeleteMapping
     public ResponseEntity<?> eliminarDetalle(
             @RequestParam("idProducto") Long idProducto,

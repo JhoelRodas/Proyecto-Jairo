@@ -14,5 +14,7 @@ public interface DetalleService {
 
     Optional<DetalleDto> insertarDetalle(DetalleDto detalleDto);
 
+    List<DetalleDto> insertarDetalles(List<DetalleDto> detallesDto);
+
     void eliminarDetalle(Long idProducto, Long idNotaCompra);
 }

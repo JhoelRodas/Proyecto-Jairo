@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -65,8 +66,9 @@ public class DetalleServiceImpl implements DetalleService {
         NotaCompra notaCompra = optionalNotaCompra.get();
 
         if (detalleDto.getCantidad() > producto.getStock())
-            throw new RuntimeException("La cantidad solicitada excede" +
-                    " el stock disponible");
+            throw new RuntimeException("La cantidad solicitada para el " +
+                    "producto ID" + detalleDto.getIdProducto() +
+                    " excede el stock disponible");
 
         // Crear el detalle y guardar en la base de datos (el trigger calculará el monto)
         Detalle detalle = new Detalle();
@@ -76,6 +78,43 @@ public class DetalleServiceImpl implements DetalleService {
         detalle.setCantidad(detalleDto.getCantidad());
         detalle.setMonto(detalleDto.getMonto());
         return detalle;
+    }
+
+    @Transactional
+    @Override
+    public List<DetalleDto> insertarDetalles(List<DetalleDto> detallesDto) {
+        if (detallesDto == null || detallesDto.isEmpty())
+            throw new RuntimeException("La lista de detalles no puede estar vacia");
+
+        List<Detalle> detalles = insertar(detallesDto);
+
+        List<Detalle> detallesGuardados = detalleRepository.saveAll(detalles);
+
+        return detallesGuardados.stream()
+                .map(DetalleDto::toDto)
+                .collect(Collectors.toList());
+    }
+
+    private List<Detalle> insertar(List<DetalleDto> detallesDeto) {
+        List<Detalle> detalles = new LinkedList<>();
+
+        for (DetalleDto detalleDto : detallesDeto) {
+            Optional<Producto> optionalProducto =
+                    productoRepository.findByIdAndDeletedFalse(
+                            detalleDto.getIdProducto());
+            Optional<NotaCompra> optionalNotaCompra =
+                    notaCompraRepository.findByIdAndDeletedFalse(
+                            detalleDto.getIdNotaCompra());
+
+            if (optionalProducto.isEmpty())
+                throw new RuntimeException("Producto no encontrado");
+
+            Detalle detalle = getDetalle(detalleDto, optionalNotaCompra,
+                    optionalProducto);
+            detalles.add(detalle);
+        }
+
+        return detalles;
     }
 
     @Transactional
