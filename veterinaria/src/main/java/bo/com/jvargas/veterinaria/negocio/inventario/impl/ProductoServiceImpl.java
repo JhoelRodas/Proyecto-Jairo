@@ -2,8 +2,10 @@ package bo.com.jvargas.veterinaria.negocio.inventario.impl;
 
 import bo.com.jvargas.veterinaria.datos.model.Producto;
 import bo.com.jvargas.veterinaria.datos.model.dto.ProductoDto;
+import bo.com.jvargas.veterinaria.datos.model.sistema.enums.TipoProceso;
 import bo.com.jvargas.veterinaria.datos.repository.inventario.ProductoRepository;
 import bo.com.jvargas.veterinaria.negocio.inventario.ProductoService;
+import bo.com.jvargas.veterinaria.negocio.sistema.BitacoraService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -15,6 +17,7 @@ import java.util.List;
 @Service("ProductoService")
 public class ProductoServiceImpl implements ProductoService {
     private final ProductoRepository productoRepository;
+    private final BitacoraService bitacoraService;
 
     @Override
     public List<ProductoDto> lista() {
@@ -31,6 +34,9 @@ public class ProductoServiceImpl implements ProductoService {
         producto.setStock(productoDto.getStock());
         producto.setDescripcion(productoDto.getDescripcion());
         productoRepository.save(producto);
+
+        bitacoraService.info(TipoProceso.GESTIONAR_PRODUCTO,
+                "Producto Registrado correctamente : {}",producto.getNombre());
     }
 
     @Override
