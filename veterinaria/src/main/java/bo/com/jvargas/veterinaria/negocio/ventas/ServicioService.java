@@ -1,6 +1,7 @@
 package bo.com.jvargas.veterinaria.negocio.ventas;
 
 import bo.com.jvargas.veterinaria.datos.model.Servicio;
+import bo.com.jvargas.veterinaria.datos.model.dto.ServicioDto;
 
 import java.util.List;
 import java.util.Optional;
@@ -10,12 +11,12 @@ import java.util.Optional;
  */
 
 public interface ServicioService {
-    List<Servicio> listarServicios();
+    List<ServicioDto> listarServicios();
 
-    Optional<Servicio> crearServicio(Servicio servicioNuevo);
+    Optional<ServicioDto> crearServicio(ServicioDto servicioNuevo);
 
-    Optional<Servicio> actualizarServicio(Long id,
-                                          Servicio servicioNuevo);
+    Optional<ServicioDto> actualizarServicio(Long id,
+                                          ServicioDto servicioNuevo);
 
     void elimiarServicio(Long id);
 }

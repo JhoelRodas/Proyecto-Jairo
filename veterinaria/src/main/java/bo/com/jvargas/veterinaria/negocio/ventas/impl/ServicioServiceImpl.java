@@ -1,6 +1,7 @@
 package bo.com.jvargas.veterinaria.negocio.ventas.impl;
 
 import bo.com.jvargas.veterinaria.datos.model.Servicio;
+import bo.com.jvargas.veterinaria.datos.model.dto.ServicioDto;
 import bo.com.jvargas.veterinaria.datos.repository.ventas.ServicioRepository;
 import bo.com.jvargas.veterinaria.negocio.ventas.ServicioService;
 import lombok.RequiredArgsConstructor;
@@ -9,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * @author GERSON
@@ -22,21 +24,24 @@ public class ServicioServiceImpl implements ServicioService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Servicio> listarServicios() {
-        return repository.findAllByDeletedFalse();
+    public List<ServicioDto> listarServicios() {
+        return repository.findAllByDeletedFalse().stream()
+                .map(ServicioDto::toDto)
+                .collect(Collectors.toList());
     }
 
     @Override
     @Transactional
-    public Optional<Servicio> crearServicio(Servicio servicioNuevo) {
-        Servicio servicioCreado = repository.save(servicioNuevo);
-        return Optional.of(servicioCreado);
+    public Optional<ServicioDto> crearServicio(ServicioDto servicioNuevo) {
+        Servicio servicio = ServicioDto.toEntity(servicioNuevo);
+        Servicio servicioCreado = repository.save(servicio);
+        return Optional.of(ServicioDto.toDto(servicioCreado));
     }
 
     @Override
     @Transactional
-    public Optional<Servicio> actualizarServicio(Long id,
-                                                 Servicio servicioNuevo) {
+    public Optional<ServicioDto> actualizarServicio(Long id,
+                                                 ServicioDto servicioNuevo) {
         Optional<Servicio> o = repository.findByIdAndDeletedFalse(id);
 
         if (o.isEmpty())
@@ -46,12 +51,13 @@ public class ServicioServiceImpl implements ServicioService {
         actualizarDatos(servicioAct, servicioNuevo);
 
         Servicio servicioActualizado = repository.save(servicioAct);
-        return Optional.of(servicioActualizado);
+        return Optional.of(ServicioDto.toDto(servicioActualizado));
     }
 
-    private void actualizarDatos(Servicio servicioAct, Servicio servicioNuevo) {
+    private void actualizarDatos(Servicio servicioAct, ServicioDto servicioNuevo) {
         servicioAct.setNombre(servicioNuevo.getNombre());
         servicioAct.setPrecio(servicioNuevo.getPrecio());
+        servicioAct.setDescripcion(servicioNuevo.getDescripcion());
     }
 
     @Override
@@ -63,6 +69,7 @@ public class ServicioServiceImpl implements ServicioService {
             throw new RuntimeException("Servicio no encontrado");
 
         Servicio servicio = o.get();
-        repository.delete(servicio);
+        servicio.setDeleted(true);
+        repository.save(servicio);
     }
 }

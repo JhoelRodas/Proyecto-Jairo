@@ -1,6 +1,7 @@
 package bo.com.jvargas.veterinaria.api.venta;
 
 import bo.com.jvargas.veterinaria.datos.model.Servicio;
+import bo.com.jvargas.veterinaria.datos.model.dto.ServicioDto;
 import bo.com.jvargas.veterinaria.negocio.ventas.ServicioService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -27,8 +28,8 @@ public class ServiceController {
     }
 
     @PostMapping
-    public ResponseEntity<?> guardarServicio(@RequestBody Servicio servicioNuevo) {
-        Optional<Servicio> o = service.crearServicio(servicioNuevo);
+    public ResponseEntity<?> guardarServicio(@RequestBody ServicioDto servicioNuevo) {
+        Optional<ServicioDto> o = service.crearServicio(servicioNuevo);
         if (o.isEmpty())
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         else
@@ -38,12 +39,23 @@ public class ServiceController {
     @PutMapping
     public ResponseEntity<?> actualizarServicio(
             @RequestParam("id") Long id,
-            @RequestBody Servicio servicioNuevo) {
+            @RequestBody ServicioDto servicioNuevo) {
         try {
-            Optional<Servicio> o = service.actualizarServicio(id, servicioNuevo);
+            Optional<ServicioDto> o = service.actualizarServicio(id, servicioNuevo);
             return ResponseEntity.ok(o.orElseThrow());
         } catch (RuntimeException e) {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<?> eliminarServicio(@PathVariable Long id) {
+        try {
+            service.elimiarServicio(id);
+            return ResponseEntity.ok().build();
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(e.getMessage());
         }
     }
 }
