@@ -2,9 +2,12 @@ package bo.com.jvargas.veterinaria.negocio.compra.impl;
 
 import bo.com.jvargas.veterinaria.datos.model.NotaCompra;
 import bo.com.jvargas.veterinaria.datos.model.Proveedor;
+import bo.com.jvargas.veterinaria.datos.model.dto.DetalleDto;
+import bo.com.jvargas.veterinaria.datos.model.dto.NotaCompraDetalleDto;
 import bo.com.jvargas.veterinaria.datos.model.dto.NotaCompraDto;
 import bo.com.jvargas.veterinaria.datos.repository.compra.NotaCompraRepository;
 import bo.com.jvargas.veterinaria.datos.repository.compra.ProveedorRepository;
+import bo.com.jvargas.veterinaria.negocio.compra.DetalleService;
 import bo.com.jvargas.veterinaria.negocio.compra.NotaCompraService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,6 +27,7 @@ public class NotaCompraServiceImpl implements NotaCompraService {
 
     private final NotaCompraRepository notaCompraRepository;
     private final ProveedorRepository proveedorRepository;
+    private final DetalleService detalleService;
 
     @Transactional(readOnly = true)
     @Override
@@ -35,9 +39,9 @@ public class NotaCompraServiceImpl implements NotaCompraService {
 
     @Transactional
     @Override
-    public NotaCompraDto guardar(NotaCompraDto nuevaNotaCompra) {
-        NotaCompra notaAGuardar = NotaCompraDto.toEntity(nuevaNotaCompra);
-        Optional<Proveedor> optionalProveedor = buscarProveedor(nuevaNotaCompra);
+    public NotaCompraDto guardar(NotaCompraDetalleDto nuevaNotaCompraDetalle) {
+        NotaCompra notaAGuardar = NotaCompraDetalleDto.toEntity(nuevaNotaCompraDetalle);
+        Optional<Proveedor> optionalProveedor = buscarProveedor(nuevaNotaCompraDetalle);
 
         if (optionalProveedor.isEmpty())
             return null;
@@ -46,10 +50,24 @@ public class NotaCompraServiceImpl implements NotaCompraService {
         notaAGuardar.setIdProveedor(proveedor);
 
         NotaCompra notaCompraGuardada = notaCompraRepository.save(notaAGuardar);
+
+        Long idNotaCompraGuardada = notaCompraGuardada.getId();
+        List<DetalleDto> detalles = nuevaNotaCompraDetalle.getDetalles();
+        actualizarIdNotaEnDetalle(detalles, idNotaCompraGuardada);
+
+        detalleService.insertarDetalles(detalles);
+
         return NotaCompraDto.toDto(notaCompraGuardada);
     }
 
-    private Optional<Proveedor> buscarProveedor(NotaCompraDto notaCompra) {
+    private void actualizarIdNotaEnDetalle(List<DetalleDto> detalles,
+                                           Long idNotaCompra) {
+        for (DetalleDto detalleDto : detalles) {
+            detalleDto.setIdNotaCompra(idNotaCompra);
+        }
+    }
+
+    private Optional<Proveedor> buscarProveedor(NotaCompraDetalleDto notaCompra) {
         String nombreProveedor = notaCompra.getNombreProveedor();
         return proveedorRepository.findByNombreAndDeletedFalse(nombreProveedor);
     }

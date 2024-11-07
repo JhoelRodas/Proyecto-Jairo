@@ -14,7 +14,7 @@ import java.time.LocalDate;
 @Table(name = "recibo")
 public class Recibo extends AuditableEntity implements Serializable {
     @Id
-@GeneratedValue
+    @GeneratedValue
     @Column(name = "id", nullable = false)
     private Long id;
 

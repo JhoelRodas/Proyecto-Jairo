@@ -1,5 +1,6 @@
 package bo.com.jvargas.veterinaria.api.compra;
 
+import bo.com.jvargas.veterinaria.datos.model.dto.NotaCompraDetalleDto;
 import bo.com.jvargas.veterinaria.datos.model.dto.NotaCompraDto;
 import bo.com.jvargas.veterinaria.negocio.compra.NotaCompraService;
 import lombok.RequiredArgsConstructor;
@@ -29,8 +30,8 @@ public class NotaCompraController {
 
     @PostMapping
     public ResponseEntity<?> guardarNotaCompra(
-            @RequestBody NotaCompraDto notaCompraDto) {
-        NotaCompraDto notaCompraGuardada = service.guardar(notaCompraDto);
+            @RequestBody NotaCompraDetalleDto notaCompraDetalleDto) {
+        NotaCompraDto notaCompraGuardada = service.guardar(notaCompraDetalleDto);
 
         if (notaCompraGuardada == null)
             return ResponseEntity.notFound().build();

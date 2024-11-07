@@ -1,18 +1,22 @@
 package bo.com.jvargas.veterinaria.datos.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.Instant;
 
+@Entity
+@Builder
 @Getter
 @Setter
-@Entity
+@ToString
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "atencion")
-public class Atencion {
+public class Atencion extends AuditableEntity implements Serializable {
     @Id
-@GeneratedValue
+    @GeneratedValue
     @Column(name = "id", nullable = false)
     private Long id;
 
@@ -27,7 +31,7 @@ public class Atencion {
     private Mascota idMascota;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id_historial", nullable = false)
+    @JoinColumn(name = "id_historial")
     private HistorialClinico idHistorial;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -35,7 +39,7 @@ public class Atencion {
     private Usuario idUsuario;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id_recibo", nullable = false)
+    @JoinColumn(name = "id_recibo")
     private Recibo idRecibo;
 
 }
