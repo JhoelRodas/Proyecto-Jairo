@@ -1,6 +1,8 @@
 package bo.com.jvargas.veterinaria.datos.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.Hibernate;
 
@@ -10,14 +12,16 @@ import java.util.Objects;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Embeddable
 public class DetalleProductoId implements java.io.Serializable {
     private static final long serialVersionUID = -7891166526364725972L;
     @Column(name = "id_recibo", nullable = false)
-    private Integer idRecibo;
+    private Long idRecibo;
 
     @Column(name = "id_producto", nullable = false)
-    private Short idProducto;
+    private Long idProducto;
 
     @Override
     public boolean equals(Object o) {

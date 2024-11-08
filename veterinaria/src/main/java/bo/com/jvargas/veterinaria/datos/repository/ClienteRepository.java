@@ -28,4 +28,6 @@ public interface ClienteRepository extends JpaRepository<Cliente, Long> {
             "from Cliente c " +
             "where c.ci = :ci ")
     Optional<Cliente> findByCi(@Param("ci") String ci);
+
+    Optional<Cliente> findByCiAndDeletedFalse(String ci);
 }

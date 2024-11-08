@@ -4,6 +4,7 @@ import bo.com.jvargas.veterinaria.datos.model.sistema.AuthUser;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Set;
 
 @Entity
@@ -14,9 +15,9 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "cliente")
-public class Cliente {
+public class Cliente extends AuditableEntity implements Serializable {
     @Id
-@GeneratedValue
+    @GeneratedValue
     @Column(name = "id", nullable = false)
     private Long id;
 
@@ -42,4 +43,9 @@ public class Cliente {
     @JoinColumn(name = "id_auth_user", nullable = false, referencedColumnName = "id")
     private AuthUser idAuthUser;
 
+    public Cliente(String ci, String extension, String nombre) {
+        this.ci = ci;
+        this.extension = extension;
+        this.nombre = nombre;
+    }
 }

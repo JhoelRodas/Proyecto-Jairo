@@ -2,7 +2,7 @@ package bo.com.jvargas.veterinaria.api;
 
 
 import bo.com.jvargas.veterinaria.datos.repository.inventario.ProductoRepository;
-import bo.com.jvargas.veterinaria.negocio.ventas.VentaService;
+import bo.com.jvargas.veterinaria.negocio.ventas.ReciboService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/venta")
 public class VentaController {
-    private final VentaService ventaService;
+    private final ReciboService reciboService;
     private final ProductoRepository productoRepository;
 
 //    @PostMapping

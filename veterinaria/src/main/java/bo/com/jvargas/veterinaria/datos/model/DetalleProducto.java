@@ -1,7 +1,6 @@
 package bo.com.jvargas.veterinaria.datos.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -9,9 +8,13 @@ import java.math.BigDecimal;
 
 @Getter
 @Setter
+@ToString
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
+@Builder
 @Table(name = "detalle_producto")
-public class DetalleProducto extends AuditableEntity implements Serializable {
+public class DetalleProducto {
     @EmbeddedId
     private DetalleProductoId id;
 
