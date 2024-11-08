@@ -154,6 +154,8 @@ public class InitializerServiceImpl implements InitializerService {
 
         AuthResource recPadreInventario = addResource("INVENTARIO", "INVENTARIO", "inventario", 4, "security", ResourceType.item, null, null, null, null, null, null);
         addResource("Producto", "Interfaz para del Producto", recPadreInventario.getUrl().concat("/producto"), 1, "insert_link", ResourceType.item, null, null, null, "PAGE_PRODUCTO", recPadreInventario, ResourceActionUtil.commonsActionsCode);
+        addResource("Categoria", "Interfaz para las Categorias", recPadreInventario.getUrl().concat("/categoria"), 2, "insert_link", ResourceType.item, null, null, null, "PAGE_CATEGORIA", recPadreInventario, ResourceActionUtil.commonsActionsCode);
+        addResource("Estante", "Interfaz para los Estantes", recPadreInventario.getUrl().concat("/estante"), 3, "insert_link", ResourceType.item, null, null, null, "PAGE_ESTANTE", recPadreInventario, ResourceActionUtil.commonsActionsCode);
 
 
 
@@ -191,6 +193,8 @@ public class InitializerServiceImpl implements InitializerService {
 
         AuthResource recPadreInventario = addPrivilegesRoleResource("inventario", null, root);
         addPrivilegesRoleResource(recPadreInventario.getUrl().concat("/producto"), ResourceActionUtil.commonsActionsCode, root);
+        addPrivilegesRoleResource(recPadreInventario.getUrl().concat("/categoria"), ResourceActionUtil.commonsActionsCode, root);
+        addPrivilegesRoleResource(recPadreInventario.getUrl().concat("/estante"), ResourceActionUtil.commonsActionsCode, root);
 
 
 
