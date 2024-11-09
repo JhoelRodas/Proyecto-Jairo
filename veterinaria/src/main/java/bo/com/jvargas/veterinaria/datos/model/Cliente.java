@@ -17,14 +17,14 @@ import java.util.Set;
 @Table(name = "cliente")
 public class Cliente extends AuditableEntity implements Serializable {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
     @Column(name = "ci", nullable = false, length = 250)
     private String ci;
 
-    @Column(name = "extension", nullable = false, length = 100)
+    @Column(name = "extension", nullable = true, length = 100)
     private String extension;
 
     @Column(name = "nombre", nullable = false, length = 100)

@@ -34,7 +34,7 @@ public class ReciboController {
         }
     }
 
-    @PutMapping("/{id}")
+    @DeleteMapping("{id}")
     public ResponseEntity<?> anular(@PathVariable Long id) {
         try {
             service.anularRecibo(id);
