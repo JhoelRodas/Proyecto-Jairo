@@ -1,7 +1,6 @@
 package bo.com.jvargas.veterinaria.datos.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -10,11 +9,15 @@ import java.time.LocalTime;
 
 @Getter
 @Setter
+@ToString
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
+@Builder
 @Table(name = "agenda")
 public class Agenda extends AuditableEntity implements Serializable {
     @Id
-@GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
@@ -31,11 +34,6 @@ public class Agenda extends AuditableEntity implements Serializable {
     private String estado;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id_mascota", nullable = false)
-    private Mascota idMascota;
-
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id_servicio", nullable = false)
-    private Servicio idServicio;
-
+    @JoinColumn(name = "id_cliente", nullable = false)
+    private Cliente idCliente;
 }
