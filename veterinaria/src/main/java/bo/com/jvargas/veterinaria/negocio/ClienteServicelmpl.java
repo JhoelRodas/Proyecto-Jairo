@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -71,14 +72,21 @@ public class ClienteServicelmpl implements ClienteService {
         clienteBuscado.setDireccion(cliente.getDireccion());
 
         clienteRepository.save(clienteBuscado);
-
     }
 
     @Override
     public void eliminar(Long id) {
-        log.info("Service eliminar {}", id);
-        clienteRepository.deleteById(id);
+        Cliente cliente = getClientePorId(id);
+        cliente.setDeleted(true);
+        clienteRepository.save(cliente);
     }
 
+    private Cliente getClientePorId(Long id) {
+        Optional<Cliente> o = clienteRepository.findByIdAndDeletedFalse(id);
 
+        if (o.isEmpty())
+            throw new IllegalArgumentException("Cliente no encontrado");
+
+        return o.get();
+    }
 }
