@@ -17,7 +17,8 @@ public interface ClienteRepository extends JpaRepository<Cliente, Long> {
     Cliente findByNombre(@Param("nombre") String nombreAcl);
 
     @Query("select new bo.com.jvargas.veterinaria.datos.model.dto.ClienteDto(c) " +
-            "from Cliente c ")
+            "from Cliente c " +
+            "where c.deleted = false")
     List<ClienteDto> listar();
 
     @Query("select c " +
@@ -30,4 +31,6 @@ public interface ClienteRepository extends JpaRepository<Cliente, Long> {
     Optional<Cliente> findByCi(@Param("ci") String ci);
 
     Optional<Cliente> findByCiAndDeletedFalse(String ci);
+
+    Optional<Cliente> findByIdAndDeletedFalse(Long id);
 }
