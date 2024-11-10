@@ -27,6 +27,9 @@ public class HistorialClinicoDto {
     private String hidratacion;
     private String estadoGeneral;
     private String mascota;
+    private String sexo;
+    private String especie;
+    private String raza;
     private String duenio;
 
     public static HistorialClinicoDto toDto(HistorialClinico historial) {
@@ -42,6 +45,9 @@ public class HistorialClinicoDto {
                 .hidratacion(historial.getHidratacion())
                 .estadoGeneral(historial.getEstadoGeneral())
                 .mascota(historial.getMascota().getNombre())
+                .sexo(historial.getMascota().getSexo())
+                .especie(historial.getMascota().getEspecie())
+                .raza(historial.getMascota().getRaza())
                 .duenio(historial.getMascota().getCiCliente().getNombre())
                 .build();
     }
