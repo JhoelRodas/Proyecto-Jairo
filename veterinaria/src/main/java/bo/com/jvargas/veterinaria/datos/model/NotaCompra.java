@@ -17,7 +17,7 @@ import java.time.LocalDate;
 @Table(name = "nota_compra")
 public class NotaCompra extends AuditableEntity implements Serializable {
     @Id
-@GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 

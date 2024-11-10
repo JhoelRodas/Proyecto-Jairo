@@ -15,7 +15,7 @@ import java.io.Serializable;
 @Table(name = "proveedor")
 public class Proveedor extends AuditableEntity implements Serializable {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 

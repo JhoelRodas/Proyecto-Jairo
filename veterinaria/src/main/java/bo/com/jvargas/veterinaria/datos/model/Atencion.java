@@ -16,7 +16,7 @@ import java.time.Instant;
 @Table(name = "atencion")
 public class Atencion extends AuditableEntity implements Serializable {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 

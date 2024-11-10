@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Table(name = "enfermedad")
 public class Enfermedad {
     @Id
-@GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 

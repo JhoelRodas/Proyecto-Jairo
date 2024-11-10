@@ -16,7 +16,7 @@ import java.math.BigDecimal;
 @Table(name = "producto")
 public class Producto extends AuditableEntity implements Serializable {
     @Id
-@GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
