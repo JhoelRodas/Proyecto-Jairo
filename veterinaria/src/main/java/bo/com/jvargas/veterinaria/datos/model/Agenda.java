@@ -1,5 +1,6 @@
 package bo.com.jvargas.veterinaria.datos.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
 import javax.persistence.*;
@@ -22,6 +23,7 @@ public class Agenda extends AuditableEntity implements Serializable {
     private Long id;
 
     @Column(name = "fecha", nullable = false)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private LocalDate fecha;
 
     @Column(name = "hora", nullable = false)

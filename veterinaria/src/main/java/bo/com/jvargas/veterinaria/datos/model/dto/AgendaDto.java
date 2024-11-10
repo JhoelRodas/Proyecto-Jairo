@@ -1,6 +1,7 @@
 package bo.com.jvargas.veterinaria.datos.model.dto;
 
 import bo.com.jvargas.veterinaria.datos.model.Agenda;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -18,6 +19,7 @@ import java.time.LocalTime;
 @AllArgsConstructor
 public class AgendaDto {
     private Long id;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private LocalDate fecha;
     private LocalTime hora;
     private String descripcion;
