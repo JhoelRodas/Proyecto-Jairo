@@ -48,4 +48,6 @@ public class HistorialClinico
     @Column(name = "estado_general", length = 10)
     private String estadoGeneral;
 
+    @OneToOne(mappedBy = "idHistorial", fetch = FetchType.LAZY)
+    private Mascota mascota;
 }

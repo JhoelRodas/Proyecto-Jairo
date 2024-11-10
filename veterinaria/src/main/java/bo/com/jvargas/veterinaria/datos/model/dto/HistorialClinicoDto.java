@@ -26,6 +26,8 @@ public class HistorialClinicoDto {
     private String apetito;
     private String hidratacion;
     private String estadoGeneral;
+    private String mascota;
+    private String duenio;
 
     public static HistorialClinicoDto toDto(HistorialClinico historial) {
         return HistorialClinicoDto.builder()
@@ -39,6 +41,8 @@ public class HistorialClinicoDto {
                 .apetito(historial.getApetito())
                 .hidratacion(historial.getHidratacion())
                 .estadoGeneral(historial.getEstadoGeneral())
+                .mascota(historial.getMascota().getNombre())
+                .duenio(historial.getMascota().getCiCliente().getNombre())
                 .build();
     }
 }
