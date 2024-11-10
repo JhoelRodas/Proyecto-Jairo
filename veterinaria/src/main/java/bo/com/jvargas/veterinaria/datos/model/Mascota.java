@@ -13,9 +13,10 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "mascota")
-public class Mascota extends AuditableEntity implements Serializable {
+public class
+Mascota extends AuditableEntity implements Serializable {
     @Id
-@GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
@@ -31,17 +32,15 @@ public class Mascota extends AuditableEntity implements Serializable {
     @Column(name = "color", nullable = false, length = 20)
     private String color;
 
+    @Column(name = "especie", nullable = false, length = 10)
+    private String especie;
+
+    @Column(name = "raza", nullable = false, length = 25)
+    private String raza;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ci_cliente",referencedColumnName = "id")
     private Cliente ciCliente;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_especie")
-    private Especie idEspecie;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_raza")
-    private Raza idRaza;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_historial")
