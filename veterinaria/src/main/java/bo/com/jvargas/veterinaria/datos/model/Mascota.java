@@ -42,8 +42,7 @@ Mascota extends AuditableEntity implements Serializable {
     @JoinColumn(name = "ci_cliente",referencedColumnName = "id")
     private Cliente ciCliente;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_historial")
     private HistorialClinico idHistorial;
-
 }
