@@ -5,6 +5,8 @@ import lombok.*;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Entity
 @Builder
@@ -20,8 +22,11 @@ public class Atencion extends AuditableEntity implements Serializable {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "fecha_hora", nullable = false)
-    private Instant fechaHora;
+    @Column(name = "fecha", nullable = false)
+    private LocalDate fecha;
+
+    @Column(name = "hora", nullable = false)
+    private LocalTime hora;
 
     @Column(name = "anamnesis", nullable = false, length = 100)
     private String anamnesis;
@@ -34,12 +39,7 @@ public class Atencion extends AuditableEntity implements Serializable {
     @JoinColumn(name = "id_historial")
     private HistorialClinico idHistorial;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id_usuario", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_usuario")
     private Usuario idUsuario;
-
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id_recibo")
-    private Recibo idRecibo;
-
 }

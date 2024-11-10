@@ -1,6 +1,8 @@
 package bo.com.jvargas.veterinaria.datos.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.Hibernate;
 
@@ -10,6 +12,8 @@ import java.util.Objects;
 
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Embeddable
 public class AtencionServicioId implements java.io.Serializable {
     private static final long serialVersionUID = 3400744806985688907L;
@@ -17,7 +21,7 @@ public class AtencionServicioId implements java.io.Serializable {
     private Long idServicio;
 
     @Column(name = "id_atencion", nullable = false)
-    private Integer idAtencion;
+    private Long idAtencion;
 
     @Override
     public boolean equals(Object o) {
