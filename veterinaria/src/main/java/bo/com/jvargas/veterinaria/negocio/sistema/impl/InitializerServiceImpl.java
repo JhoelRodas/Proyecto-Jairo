@@ -150,6 +150,7 @@ public class InitializerServiceImpl implements InitializerService {
         addResource("Servicios", "Interfaz para los servicios", recPadreVentas.getUrl().concat("/servicio"), 4, "insert_link", ResourceType.item, null, null, null, "PAGE_SERVICIO", recPadreVentas, ResourceActionUtil.commonsActionsCode);
         addResource("Agenda", "Interfaz para la Agenda", recPadreVentas.getUrl().concat("/agenda"), 5, "insert_link", ResourceType.item, null, null, null, "PAGE_AGENDA", recPadreVentas, ResourceActionUtil.commonsActionsCode);
         addResource("historialClinico", "Interfaz para el Historial", recPadreVentas.getUrl().concat("/historialClinico"), 6, "insert_link", ResourceType.item, null, null, null, "PAGE_HISTORIAL", recPadreVentas, ResourceActionUtil.commonsActionsCode);
+        addResource("Atencion", "Interfaz para la Atencion", recPadreVentas.getUrl().concat("/atencion"), 7, "insert_link", ResourceType.item, null, null, null, "PAGE_ATENCION", recPadreVentas, ResourceActionUtil.commonsActionsCode);
 
         AuthResource recPadreCompra = addResource("COMPRA", "COMPRA", "compras", 3, "security", ResourceType.item, null, null, null, null, null, null);
         addResource("Proveedor", "Interfaz para el Proveedor", recPadreCompra.getUrl().concat("/proveedor"), 1, "insert_link", ResourceType.item, null, null, null, "PAGE_PROVEEDOR", recPadreCompra, ResourceActionUtil.commonsActionsCode);
@@ -191,6 +192,7 @@ public class InitializerServiceImpl implements InitializerService {
         addPrivilegesRoleResource(recPadreVentas.getUrl().concat("/servicio"), ResourceActionUtil.commonsActionsCode, root);
         addPrivilegesRoleResource(recPadreVentas.getUrl().concat("/agenda"), ResourceActionUtil.commonsActionsCode, root);
         addPrivilegesRoleResource(recPadreVentas.getUrl().concat("/historialClinico"), ResourceActionUtil.commonsActionsCode, root);
+        addPrivilegesRoleResource(recPadreVentas.getUrl().concat("/atencion"), ResourceActionUtil.commonsActionsCode, root);
 
         AuthResource recPadreCompras = addPrivilegesRoleResource("compras", null, root);
         addPrivilegesRoleResource(recPadreCompras.getUrl().concat("/proveedor"), ResourceActionUtil.commonsActionsCode, root);
