@@ -28,6 +28,16 @@ public class NotaCompraController {
         return ResponseEntity.ok(notas);
     }
 
+    @GetMapping("/get")
+    public ResponseEntity<?> obtenerNotaCompra(@RequestParam Long id) {
+        try {
+            return ResponseEntity.ok(service.verNotaDeCompra(id));
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(e.getMessage());
+        }
+    }
+
     @PostMapping
     public ResponseEntity<?> guardarNotaCompra(
             @RequestBody NotaCompraDetalleDto notaCompraDetalleDto) {

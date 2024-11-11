@@ -13,6 +13,8 @@ import java.util.Optional;
 public interface NotaCompraService {
     List<NotaCompraDto> listar();
 
+    NotaCompraDto verNotaDeCompra(Long id);
+
     NotaCompraDto guardar(NotaCompraDetalleDto nuevaNotaCompra);
 
     Optional<NotaCompraDto> actualizar(Long id,

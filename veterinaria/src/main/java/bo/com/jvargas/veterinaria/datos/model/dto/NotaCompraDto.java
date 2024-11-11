@@ -5,6 +5,7 @@ import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  * @author GERSON
@@ -21,6 +22,7 @@ public class NotaCompraDto {
     private BigDecimal montoTotal;
     private LocalDate fecha;
     private String nombreProveedor;
+    private List<DetalleDto> detalle;
 
     public static NotaCompraDto toDto(NotaCompra notaCompra) {
         if (notaCompra == null)
@@ -31,6 +33,19 @@ public class NotaCompraDto {
                 .montoTotal(notaCompra.getMontoTotal())
                 .fecha(notaCompra.getFecha())
                 .nombreProveedor(notaCompra.getIdProveedor().getNombre())
+                .build();
+    }
+
+    public static NotaCompraDto toDto2(NotaCompra notaCompra, List<DetalleDto> detalle) {
+        if (notaCompra == null)
+            return null;
+
+        return NotaCompraDto.builder()
+                .id(notaCompra.getId())
+                .montoTotal(notaCompra.getMontoTotal())
+                .fecha(notaCompra.getFecha())
+                .nombreProveedor(notaCompra.getIdProveedor().getNombre())
+                .detalle(detalle)
                 .build();
     }
 

@@ -37,6 +37,24 @@ public class NotaCompraServiceImpl implements NotaCompraService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public NotaCompraDto verNotaDeCompra(Long id) {
+        NotaCompra notaCompra = getNotaCompra(id);
+        Long idNotaCompra = notaCompra.getId();
+        List<DetalleDto> listaDeDetalles = detalleService
+                .getDetalles(idNotaCompra);
+
+        return NotaCompraDto.toDto2(notaCompra, listaDeDetalles);
+    }
+
+    private NotaCompra getNotaCompra(Long id) {
+        return notaCompraRepository.findByIdAndDeletedFalse(id)
+                .orElseThrow(() -> new IllegalArgumentException(
+                        "No existe la nota de compra con el ID " + id
+                ));
+    }
+
     @Transactional
     @Override
     public NotaCompraDto guardar(NotaCompraDetalleDto nuevaNotaCompraDetalle) {

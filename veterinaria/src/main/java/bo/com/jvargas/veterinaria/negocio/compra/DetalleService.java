@@ -12,6 +12,8 @@ import java.util.Optional;
 public interface DetalleService {
     List<DetalleDto> listarDetalles();
 
+    List<DetalleDto> getDetalles(Long idNotaCompra);
+
     Optional<DetalleDto> insertarDetalle(DetalleDto detalleDto);
 
     List<DetalleDto> insertarDetalles(List<DetalleDto> detallesDto);

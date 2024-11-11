@@ -38,6 +38,15 @@ public class DetalleServiceImpl implements DetalleService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional(readOnly = true)
+    @Override
+    public List<DetalleDto> getDetalles(Long idNotaCompra) {
+        return detalleRepository.findAllByIdNotaCompra_Id(idNotaCompra)
+                .stream()
+                .map(DetalleDto::toDto2)
+                .collect(Collectors.toList());
+    }
+
     @Transactional
     @Override
     public Optional<DetalleDto> insertarDetalle(DetalleDto detalleDto) {
@@ -64,11 +73,6 @@ public class DetalleServiceImpl implements DetalleService {
 
         Producto producto = optionalProducto.get();
         NotaCompra notaCompra = optionalNotaCompra.get();
-
-        if (detalleDto.getCantidad() > producto.getStock())
-            throw new RuntimeException("La cantidad solicitada para el " +
-                    "producto ID" + detalleDto.getIdProducto() +
-                    " excede el stock disponible");
 
         // Crear el detalle y guardar en la base de datos (el trigger calculará el monto)
         Detalle detalle = new Detalle();
