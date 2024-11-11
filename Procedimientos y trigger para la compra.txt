@@ -1,0 +1,62 @@
+CREATE OR REPLACE FUNCTION actualizar_precio_compra(p_id_producto BIGINT, p_monto NUMERIC, p_cantidad INT)
+RETURNS VOID AS $$
+BEGIN
+    UPDATE public.producto
+    SET costo_compra = p_monto / p_cantidad
+    WHERE id = p_id_producto;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION actualizar_precio_promedio(p_id_producto BIGINT, p_monto NUMERIC, p_cantidad INT)
+RETURNS VOID AS $$
+DECLARE
+    nuevo_stock INT;
+    total_monto NUMERIC;
+    total_cantidad INT;
+BEGIN
+    -- Obtener el stock actual y el precio promedio
+    SELECT stock, costo_promedio INTO nuevo_stock, total_monto
+    FROM public.producto
+    WHERE id = p_id_producto;
+
+    -- Calcular el nuevo precio promedio
+    total_monto := (nuevo_stock * total_monto) + p_monto;
+    total_cantidad := nuevo_stock + p_cantidad;
+
+    UPDATE public.producto
+    SET costo_promedio = total_monto / total_cantidad,
+        stock = total_cantidad
+    WHERE id = p_id_producto;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION actualizar_monto_total(p_id_nota_compra BIGINT, p_monto NUMERIC)
+RETURNS VOID AS $$
+BEGIN
+    UPDATE public.nota_compra
+    SET monto_total = monto_total + p_monto
+    WHERE id = p_id_nota_compra;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION actualizar_inventario_compra()
+RETURNS TRIGGER AS $$
+BEGIN
+    -- Llamar al procedimiento para actualizar el precio de compra
+    PERFORM actualizar_precio_compra(NEW.id_producto, NEW.monto, NEW.cantidad);
+
+    -- Llamar al procedimiento para actualizar el precio promedio
+    PERFORM actualizar_precio_promedio(NEW.id_producto, NEW.monto, NEW.cantidad);
+
+    -- Llamar al procedimiento para actualizar el monto total de la compra
+    PERFORM actualizar_monto_total(NEW.id_nota_compra, NEW.monto);
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+
+CREATE TRIGGER trg_actualizar_inventario_y_compra
+AFTER INSERT ON public.detalle
+FOR EACH ROW
+EXECUTE FUNCTION actualizar_inventario_compra();
