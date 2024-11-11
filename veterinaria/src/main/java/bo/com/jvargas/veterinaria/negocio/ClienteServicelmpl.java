@@ -38,7 +38,7 @@ public class ClienteServicelmpl implements ClienteService {
     @Override
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = {Exception.class})
     public void registrar(Cliente cliente) {
-        log.error("registrar cliente");
+        //log.error("registrar cliente");
         AuthRole rolCliente = authRoleRepository.findByName("ROL_CLIENTE").orElseThrow(() -> new OperationException("No existe rol"));
 
         // Poniendo los datos del Cliente a su cuenta de  Usuario

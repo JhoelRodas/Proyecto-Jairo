@@ -15,7 +15,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ReciboDto {
+public class ReciboDto extends ReporteDto {
     private Long id;
     private LocalDate fecha;
     private BigDecimal montoTotal;
@@ -34,5 +34,25 @@ public class ReciboDto {
                 .extension(recibo.getIdCliente().getExtension())
                 .nombre(recibo.getIdCliente().getNombre())
                 .build();
+    }
+
+    @Override
+    public String getValor(String property) {
+        switch (property){
+            case "id":
+                return String.valueOf(getId());
+            case "nombre":
+                return String.valueOf(getNombre());
+            case "ci":
+                return String.valueOf(getCi());
+                case "fecha":
+                    return String.valueOf(getFecha());
+                    case "montoTotal":
+                        return String.valueOf(getMontoTotal());
+            case "metodoPago":
+                return String.valueOf(getMetodoPago());
+
+            default:return "";
+        }
     }
 }

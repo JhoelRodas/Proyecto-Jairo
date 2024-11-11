@@ -6,18 +6,18 @@ import bo.com.jvargas.veterinaria.datos.model.dto.DetalleProductoDto;
 import bo.com.jvargas.veterinaria.datos.model.dto.ReciboDetalleDto;
 import bo.com.jvargas.veterinaria.datos.model.dto.ReciboDto;
 import bo.com.jvargas.veterinaria.datos.repository.ClienteRepository;
-import bo.com.jvargas.veterinaria.datos.repository.ventas.DetalleProductoRepository;
 import bo.com.jvargas.veterinaria.datos.repository.ventas.ReciboRepository;
 import bo.com.jvargas.veterinaria.negocio.ClienteService;
 import bo.com.jvargas.veterinaria.negocio.ventas.DetalleProductoService;
 import bo.com.jvargas.veterinaria.negocio.ventas.ReciboService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -34,6 +34,16 @@ public class ReciboServiceImpl implements ReciboService {
     @Transactional(readOnly = true)
     public List<ReciboDto> listarRecibos() {
         return reciboRepository.findAllByDeletedFalse().stream()
+                .map(ReciboDto::toDto)
+                .collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public List<ReciboDto> listarRecibosReporte(Date from, Date to) {
+        LocalDate fromLocal = LocalDate.ofEpochDay(from.getTime());
+        LocalDate toLocal = LocalDate.ofEpochDay(to.getTime());
+        return reciboRepository.listaFiltrada(fromLocal,toLocal).stream()
                 .map(ReciboDto::toDto)
                 .collect(Collectors.toList());
     }
