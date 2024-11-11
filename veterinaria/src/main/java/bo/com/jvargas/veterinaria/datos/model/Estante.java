@@ -15,7 +15,7 @@ import java.io.Serializable;
 @Table(name = "estante")
 public class Estante extends AuditableEntity implements Serializable {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 

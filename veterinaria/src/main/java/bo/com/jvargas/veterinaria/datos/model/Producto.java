@@ -26,6 +26,12 @@ public class Producto extends AuditableEntity implements Serializable {
     @Column(name = "precio_unitario", nullable = false, precision = 5, scale = 2)
     private BigDecimal precioUnitario;
 
+    @Column(name = "costo_promedio", nullable = false, precision = 5, scale = 2)
+    private BigDecimal costoPromedio;
+
+    @Column(name = "costo_compra", nullable = false, precision = 5, scale = 2)
+    private BigDecimal costoCompra;
+
     @Column(name = "stock", nullable = false)
     private Short stock;
 

@@ -1,8 +1,10 @@
 package bo.com.jvargas.veterinaria.negocio.inventario.impl;
 
+import bo.com.jvargas.veterinaria.datos.model.Categoria;
 import bo.com.jvargas.veterinaria.datos.model.Producto;
 import bo.com.jvargas.veterinaria.datos.model.dto.ProductoDto;
 import bo.com.jvargas.veterinaria.datos.model.sistema.enums.TipoProceso;
+import bo.com.jvargas.veterinaria.datos.repository.inventario.CategoriaRepository;
 import bo.com.jvargas.veterinaria.datos.repository.inventario.ProductoRepository;
 import bo.com.jvargas.veterinaria.negocio.inventario.ProductoService;
 import bo.com.jvargas.veterinaria.negocio.sistema.BitacoraService;
@@ -12,11 +14,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
+
 @Slf4j
 @RequiredArgsConstructor
 @Service("ProductoService")
 public class ProductoServiceImpl implements ProductoService {
     private final ProductoRepository productoRepository;
+    private final CategoriaRepository categoriaRepository;
     private final BitacoraService bitacoraService;
 
     @Override
@@ -31,8 +36,12 @@ public class ProductoServiceImpl implements ProductoService {
         producto.setId(productoDto.getId());
         producto.setNombre(productoDto.getNombre());
         producto.setPrecioUnitario(productoDto.getPrecioUnitario());
+        producto.setCostoCompra(productoDto.getPrecioUnitario());
+        producto.setCostoPromedio(productoDto.getPrecioUnitario());
         producto.setStock(productoDto.getStock());
         producto.setDescripcion(productoDto.getDescripcion());
+        Optional<Categoria> categoria = categoriaRepository.findByIdAndDeletedFalse(productoDto.getIdCategoria());
+        producto.setIdCategoria(categoria.orElseThrow());
         productoRepository.save(producto);
 
         bitacoraService.info(TipoProceso.GESTIONAR_PRODUCTO,
