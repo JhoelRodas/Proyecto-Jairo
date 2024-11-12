@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -66,6 +67,7 @@ public class NotaCompraServiceImpl implements NotaCompraService {
 
         Proveedor proveedor = optionalProveedor.get();
         notaAGuardar.setIdProveedor(proveedor);
+        notaAGuardar.setFecha(LocalDate.now());
 
         NotaCompra notaCompraGuardada = notaCompraRepository.save(notaAGuardar);
 

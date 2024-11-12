@@ -1,6 +1,7 @@
 package bo.com.jvargas.veterinaria.datos.model.dto;
 
 import bo.com.jvargas.veterinaria.datos.model.NotaCompra;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
 import java.math.BigDecimal;
@@ -20,6 +21,7 @@ import java.util.List;
 public class NotaCompraDto {
     private Long id;
     private BigDecimal montoTotal;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private LocalDate fecha;
     private String nombreProveedor;
     private List<DetalleDto> detalle;
