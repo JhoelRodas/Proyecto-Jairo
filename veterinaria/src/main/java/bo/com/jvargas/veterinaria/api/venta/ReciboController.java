@@ -1,5 +1,6 @@
 package bo.com.jvargas.veterinaria.api.venta;
 
+import bo.com.jvargas.veterinaria.datos.model.dto.HistorialClinicoDto;
 import bo.com.jvargas.veterinaria.datos.model.dto.ReciboDetalleDto;
 import bo.com.jvargas.veterinaria.negocio.ventas.ReciboService;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +23,17 @@ public class ReciboController {
     @GetMapping
     public ResponseEntity<?> listar() {
         return ResponseEntity.status(HttpStatus.CREATED).body(service.listarRecibos());
+    }
+
+    @GetMapping("/getRecibo")
+    public ResponseEntity<?> obtenerRecibo(@RequestParam("id") Long id) {
+        try {
+            ReciboDetalleDto recibo = service.verRecibo(id);
+            return ResponseEntity.ok(recibo);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(e.getMessage());
+        }
     }
 
     @PostMapping

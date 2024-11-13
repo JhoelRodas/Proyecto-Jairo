@@ -63,8 +63,8 @@ public class NotaCompraController {
             return ResponseEntity.notFound().build();
     }
 
-    @DeleteMapping
-    public ResponseEntity<Void> eliminarNotaCompra(@RequestParam ("id") Long id) {
+    @DeleteMapping("{id}")
+    public ResponseEntity<?> eliminarNotaCompra(@PathVariable Long id) {
         try {
             service.eliminar(id);
             return ResponseEntity.noContent().build();
