@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -68,6 +69,7 @@ public class NotaCompraServiceImpl implements NotaCompraService {
         Proveedor proveedor = optionalProveedor.get();
         notaAGuardar.setIdProveedor(proveedor);
         notaAGuardar.setFecha(LocalDate.now());
+        notaAGuardar.setMontoTotal(calcularMontoTotal(nuevaNotaCompraDetalle.getDetalles()));
 
         NotaCompra notaCompraGuardada = notaCompraRepository.save(notaAGuardar);
 
@@ -78,6 +80,16 @@ public class NotaCompraServiceImpl implements NotaCompraService {
         detalleService.insertarDetalles(detalles);
 
         return NotaCompraDto.toDto(notaCompraGuardada);
+    }
+
+    private BigDecimal calcularMontoTotal(List<DetalleDto> detalles) {
+        BigDecimal montoTotal = BigDecimal.ZERO;
+
+        for (DetalleDto detalle : detalles) {
+            montoTotal = montoTotal.add(detalle.getMonto());
+        }
+
+        return montoTotal;
     }
 
     private void actualizarIdNotaEnDetalle(List<DetalleDto> detalles,

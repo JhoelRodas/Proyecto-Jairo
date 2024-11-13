@@ -14,10 +14,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -70,12 +70,22 @@ public class ReciboServiceImpl implements ReciboService {
         reciboAGuardar.setFecha(LocalDate.now());
         Cliente cliente = getCliente(nuevoRecibo);
         reciboAGuardar.setIdCliente(cliente);
+        reciboAGuardar.setMontoTotal(calcularMontoTotal(nuevoRecibo.getDetalles()));
 
         Recibo reciboGuardado = reciboRepository.save(reciboAGuardar);
         Long idReciboGuardado = reciboGuardado.getId();
         List<DetalleProductoDto> detalles = nuevoRecibo.getDetalles();
         actualizarIdReciboEnLosDetalles(idReciboGuardado, detalles);
         detalleService.insertarDetallesProductos(detalles);
+    }
+
+    private BigDecimal calcularMontoTotal(List<DetalleProductoDto> detalles) {
+        BigDecimal montoTotal = BigDecimal.ZERO;
+        for (DetalleProductoDto detalle : detalles) {
+            montoTotal = montoTotal.add(detalle.getMonto());
+        }
+
+        return montoTotal;
     }
 
     private Cliente getCliente(ReciboDetalleDto nuevoRecibo) {
