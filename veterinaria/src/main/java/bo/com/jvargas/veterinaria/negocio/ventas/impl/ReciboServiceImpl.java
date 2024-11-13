@@ -38,6 +38,20 @@ public class ReciboServiceImpl implements ReciboService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public ReciboDetalleDto verRecibo(Long id) {
+        Recibo recibo = reciboRepository.findByIdAndDeletedFalse(id)
+                .orElseThrow(() -> new IllegalArgumentException(
+                        "No existe el recibo con el ID " + id
+                ));
+
+        Long idRecibo = recibo.getId();
+        List<DetalleProductoDto> detalles = detalleService
+                .listarDetalles(idRecibo);
+        return ReciboDetalleDto.toDto(recibo, detalles);
+    }
+
     @Transactional(readOnly = true)
     @Override
     public List<ReciboDto> listarRecibosReporte(Date from, Date to) {

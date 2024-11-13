@@ -12,6 +12,8 @@ import java.util.List;
 public interface DetalleProductoService {
     List<DetalleProductoDto> listarDetalleProductos();
 
+    List<DetalleProductoDto> listarDetalles(Long idRecibo);
+
     void insertarDetalleProducto(DetalleProductoDto nuevoDetalle);
 
     void insertarDetallesProductos(List<DetalleProductoDto> nuevosDetalles);

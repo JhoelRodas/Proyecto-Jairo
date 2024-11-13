@@ -10,6 +10,8 @@ import java.util.List;
 public interface ReciboService {
     List<ReciboDto> listarRecibos();
 
+    ReciboDetalleDto verRecibo(Long id);
+
     @Transactional(readOnly = true)
     List<ReciboDto> listarRecibosReporte(Date from, Date to);
 

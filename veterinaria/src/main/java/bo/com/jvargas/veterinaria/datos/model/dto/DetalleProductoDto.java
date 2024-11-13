@@ -18,6 +18,7 @@ import java.math.BigDecimal;
 public class DetalleProductoDto {
     private Long idRecibo;
     private Long idProducto;
+    private String nombreProducto;
     private Long cant;
     private BigDecimal monto;
 
@@ -29,5 +30,14 @@ public class DetalleProductoDto {
                 .monto(detalleProducto.getMonto())
                 .build();
 
+    }
+
+    public static DetalleProductoDto toDto2(DetalleProducto detalleProducto) {
+        return DetalleProductoDto.builder()
+                .idProducto(detalleProducto.getIdProducto().getId())
+                .nombreProducto(detalleProducto.getIdProducto().getNombre())
+                .cant(detalleProducto.getCant())
+                .monto(detalleProducto.getMonto())
+                .build();
     }
 }

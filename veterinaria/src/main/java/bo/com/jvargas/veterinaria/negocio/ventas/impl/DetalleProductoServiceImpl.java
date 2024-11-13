@@ -39,6 +39,14 @@ public class DetalleProductoServiceImpl implements DetalleProductoService {
     }
 
     @Override
+    @Transactional(readOnly = true)
+    public List<DetalleProductoDto> listarDetalles(Long idRecibo) {
+        return detalleProductoRepository.findAllByIdRecibo_Id(idRecibo).stream()
+                .map(DetalleProductoDto::toDto2)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     @Transactional
     public void insertarDetalleProducto(DetalleProductoDto nuevoDetalle) {
         Producto producto = getProducto(nuevoDetalle);

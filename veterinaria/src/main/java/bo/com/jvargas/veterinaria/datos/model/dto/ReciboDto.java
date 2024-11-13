@@ -1,6 +1,7 @@
 package bo.com.jvargas.veterinaria.datos.model.dto;
 
 import bo.com.jvargas.veterinaria.datos.model.Recibo;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
 import java.math.BigDecimal;
@@ -17,6 +18,7 @@ import java.time.LocalDate;
 @Builder
 public class ReciboDto extends ReporteDto {
     private Long id;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private LocalDate fecha;
     private BigDecimal montoTotal;
     private String metodoPago;
