@@ -49,14 +49,16 @@ public class ProductoServiceImpl implements ProductoService {
     }
 
     @Override
-    public void actualizar(Long id, Producto producto) {
+    public void actualizar(Long id, ProductoDto producto) {
         Producto productoBuscado = productoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
         productoBuscado.setNombre(producto.getNombre());
         productoBuscado.setPrecioUnitario(producto.getPrecioUnitario());
         productoBuscado.setStock(producto.getStock());
         productoBuscado.setDescripcion(producto.getDescripcion());
-        productoBuscado.setIdCategoria(producto.getIdCategoria());
+        Categoria categoria = categoriaRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("categoria no encontrado"));
+        productoBuscado.setIdCategoria(categoria);
 
         productoRepository.save(productoBuscado);
     }

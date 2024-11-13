@@ -3,9 +3,13 @@ package bo.com.jvargas.veterinaria.negocio.ventas.impl;
 import bo.com.jvargas.veterinaria.datos.model.Atencion;
 import bo.com.jvargas.veterinaria.datos.model.HistorialClinico;
 import bo.com.jvargas.veterinaria.datos.model.Mascota;
+import bo.com.jvargas.veterinaria.datos.model.Usuario;
 import bo.com.jvargas.veterinaria.datos.model.dto.AtencionDto;
 import bo.com.jvargas.veterinaria.datos.model.dto.AtencionServicioDto;
+import bo.com.jvargas.veterinaria.datos.model.sistema.AuthUser;
 import bo.com.jvargas.veterinaria.datos.repository.MascotaRepository;
+import bo.com.jvargas.veterinaria.datos.repository.UsuarioRepository;
+import bo.com.jvargas.veterinaria.datos.repository.sistema.AuthUserRepository;
 import bo.com.jvargas.veterinaria.datos.repository.ventas.AtencionRepository;
 import bo.com.jvargas.veterinaria.datos.repository.ventas.HistorialClinicoRepository;
 import bo.com.jvargas.veterinaria.negocio.ventas.AtencionService;
@@ -31,6 +35,7 @@ public class AtencionServiceImpl implements AtencionService {
     private final AtencionRepository atencionRepository;
     private final MascotaRepository mascotaRepository;
     private final AtencionServicioService service;
+    private final AuthUserRepository authUserRepository;
 
     @Override
     @Transactional(readOnly = true)
@@ -63,14 +68,18 @@ public class AtencionServiceImpl implements AtencionService {
 
         Mascota mascota = getMascota(atencionNueva);
         HistorialClinico historialClinico = mascota.getIdHistorial();
+        AuthUser usuario = getUsuario(atencionNueva);
         atencionAGuardar.setIdMascota(mascota);
         atencionAGuardar.setIdHistorial(historialClinico);
+        atencionAGuardar.setIdUsuario(usuario);
 
-        Atencion atencionGuardada = atencionRepository.save(atencionAGuardar);
-        Long idAtencionGuardada = atencionGuardada.getId();
-        List<AtencionServicioDto> servicios = atencionNueva.getServicios();
-        actualizarIdEnEnAtencionServicios(servicios, idAtencionGuardada);
-        service.insertarServicios(servicios);
+        atencionRepository.save(atencionAGuardar);
+
+//        Atencion atencionGuardada = atencionRepositoy.save(atencionAGuardar);
+//        Long idAtencionGuardada = atencionGuardada.gtId();
+//        List<AtencionServicioDto> servicios = atencinNueva.getServicios();
+//        actualizarIdEnEnAtencionServicios(servicios,idAtencionGuardada);
+//        service.insertarServicios(servicios);
     }
 
     private Mascota getMascota(AtencionDto atencionNueva) {
@@ -80,6 +89,16 @@ public class AtencionServiceImpl implements AtencionService {
                         "No existe la mascota con el ID " + idMascota
                 ));
     }
+
+    private AuthUser getUsuario(AtencionDto atencionNueva) {
+        Long idUsuario = atencionNueva.getIdUsuario();
+        return authUserRepository.findById(idUsuario)
+                .orElseThrow(() -> new IllegalArgumentException(
+                        "No existe la Usuario con el ID " + idUsuario
+                ));
+    }
+
+
 
     private void actualizarIdEnEnAtencionServicios(
             List<AtencionServicioDto> servicioDtos,

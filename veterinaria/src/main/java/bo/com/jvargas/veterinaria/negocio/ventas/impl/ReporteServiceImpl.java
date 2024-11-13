@@ -24,6 +24,14 @@ import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+
+
+
+import java.io.ByteArrayOutputStream;
+import java.util.List;
+
+
+
 @Slf4j
 @RequiredArgsConstructor
 @Service("reporteService")
@@ -95,5 +103,6 @@ public class ReporteServiceImpl implements ReporteService {
         List<? extends ReporteDto> dataPage = reciboService.listarRecibosReporte(filters.getFrom(), filters.getTo());
         ReporteUtil.setDataCellReporte(sheet,dataPage,cabeceras,rowIndex);
     }
+
 
 }

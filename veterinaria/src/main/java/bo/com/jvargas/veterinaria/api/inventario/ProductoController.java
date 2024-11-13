@@ -34,8 +34,8 @@ public class ProductoController {
     }
 
     @PutMapping()
-    public ResponseEntity<Void> actualizarProducto(@RequestParam("id") Long id , @RequestBody Producto producto) {
-        productoService.actualizar(id, producto);
+    public ResponseEntity<Void> actualizarProducto(@RequestParam("id") Long id , @RequestBody ProductoDto productoDto) {
+        productoService.actualizar(id, productoDto);
         return ResponseEntity.ok().build();
     }
 

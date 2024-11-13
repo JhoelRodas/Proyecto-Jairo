@@ -1,5 +1,6 @@
 package bo.com.jvargas.veterinaria.datos.model;
 
+import bo.com.jvargas.veterinaria.datos.model.sistema.AuthUser;
 import lombok.*;
 
 import javax.persistence.*;
@@ -40,6 +41,6 @@ public class Atencion extends AuditableEntity implements Serializable {
     private HistorialClinico idHistorial;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_usuario")
-    private Usuario idUsuario;
+    @JoinColumn(name = "AUTH_USER")
+    private AuthUser idUsuario;
 }

@@ -10,7 +10,7 @@ public interface ProductoService {
 
     void registar(ProductoDto productoDto);
 
-    void actualizar(Long id, Producto producto);
+    void actualizar(Long id, ProductoDto producto);
 
     void eliminar(Long id);
 }

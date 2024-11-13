@@ -23,9 +23,11 @@ public class AtencionDto {
     private LocalTime hora;
     private String anamnesis;
     private Long idMascota;
+    private Long idUsuario;
     private String cliente;
     private String mascota;
-    private List<AtencionServicioDto> servicios;
+    private String usuario;
+
 
     public static AtencionDto toDto(Atencion atencion) {
         return AtencionDto.builder()
@@ -35,6 +37,9 @@ public class AtencionDto {
                 .anamnesis(atencion.getAnamnesis())
                 .cliente(atencion.getIdMascota().getCiCliente().getNombre())
                 .mascota(atencion.getIdMascota().getNombre())
+                .usuario(atencion.getIdUsuario().getName())
+                .idMascota(atencion.getIdMascota().getId())
+                .idUsuario(atencion.getIdUsuario().getId())
                 .build();
     }
 

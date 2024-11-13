@@ -154,6 +154,7 @@ public class InitializerServiceImpl implements InitializerService {
 
         AuthResource recPadreCompra = addResource("COMPRA", "COMPRA", "compras", 3, "security", ResourceType.item, null, null, null, null, null, null);
         addResource("Proveedor", "Interfaz para el Proveedor", recPadreCompra.getUrl().concat("/proveedor"), 1, "insert_link", ResourceType.item, null, null, null, "PAGE_PROVEEDOR", recPadreCompra, ResourceActionUtil.commonsActionsCode);
+        addResource("Nota de Compra", "Interfaz para la Nota de Compra", recPadreCompra.getUrl().concat("/nota-Compra"), 2, "insert_link", ResourceType.item, null, null, null, "PAGE_NOTACOMPRA", recPadreCompra, ResourceActionUtil.commonsActionsCode);
 
         AuthResource recPadreInventario = addResource("INVENTARIO", "INVENTARIO", "inventario", 4, "security", ResourceType.item, null, null, null, null, null, null);
         addResource("Producto", "Interfaz para del Producto", recPadreInventario.getUrl().concat("/producto"), 1, "insert_link", ResourceType.item, null, null, null, "PAGE_PRODUCTO", recPadreInventario, ResourceActionUtil.commonsActionsCode);
@@ -196,6 +197,7 @@ public class InitializerServiceImpl implements InitializerService {
 
         AuthResource recPadreCompras = addPrivilegesRoleResource("compras", null, root);
         addPrivilegesRoleResource(recPadreCompras.getUrl().concat("/proveedor"), ResourceActionUtil.commonsActionsCode, root);
+        addPrivilegesRoleResource(recPadreCompras.getUrl().concat("/nota-Compra"), ResourceActionUtil.commonsActionsCode, root);
 
         AuthResource recPadreInventario = addPrivilegesRoleResource("inventario", null, root);
         addPrivilegesRoleResource(recPadreInventario.getUrl().concat("/producto"), ResourceActionUtil.commonsActionsCode, root);
