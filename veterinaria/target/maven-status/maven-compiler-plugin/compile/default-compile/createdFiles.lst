@@ -3,8 +3,10 @@ bo\com\jvargas\veterinaria\datos\model\sistema\dto\RecoveryPasswordDto.class
 bo\com\jvargas\veterinaria\datos\model\dto\ReciboDto.class
 bo\com\jvargas\veterinaria\datos\model\sistema\dto\ActionDto.class
 bo\com\jvargas\veterinaria\negocio\ventas\impl\ReporteServiceImpl.class
+bo\com\jvargas\veterinaria\datos\model\dto\ReporteRequest.class
 bo\com\jvargas\veterinaria\datos\model\sistema\AuthResource.class
 bo\com\jvargas\veterinaria\datos\model\Cliente.class
+bo\com\jvargas\veterinaria\api\venta\utils\PDFGeneratorRecibo.class
 bo\com\jvargas\veterinaria\datos\repository\ventas\HistorialClinicoRepository.class
 bo\com\jvargas\veterinaria\datos\model\Detalle.class
 bo\com\jvargas\veterinaria\datos\model\sistema\AuthPrivilege$AuthPrivilegeBuilder.class
@@ -111,6 +113,7 @@ bo\com\jvargas\veterinaria\datos\model\sistema\AuthUser.class
 bo\com\jvargas\veterinaria\datos\model\Cliente$ClienteBuilder.class
 bo\com\jvargas\veterinaria\datos\model\dto\MascotaDto$MascotaDtoBuilder.class
 bo\com\jvargas\veterinaria\datos\model\HistorialClinico.class
+bo\com\jvargas\veterinaria\datos\model\dto\ReporteRequest$Orden.class
 bo\com\jvargas\veterinaria\negocio\ventas\impl\DetalleProductoServiceImpl.class
 bo\com\jvargas\veterinaria\api\venta\MascotaController.class
 bo\com\jvargas\veterinaria\datos\repository\ventas\ReciboRepository.class
@@ -144,6 +147,7 @@ bo\com\jvargas\veterinaria\datos\model\dto\ServicioDto$ServicioDtoBuilder.class
 bo\com\jvargas\veterinaria\negocio\inventario\ProductoService.class
 bo\com\jvargas\veterinaria\datos\repository\compra\ProveedorRepository.class
 bo\com\jvargas\veterinaria\negocio\compra\impl\ProveedorServiceImpl.class
+bo\com\jvargas\veterinaria\utils\ExcelGeneratorRecibo.class
 bo\com\jvargas\veterinaria\negocio\admusuarios\impl\RoleServicelmpl.class
 bo\com\jvargas\veterinaria\negocio\ventas\impl\ClienteServicelmpl.class
 bo\com\jvargas\veterinaria\api\compra\NotaCompraController.class
@@ -265,6 +269,7 @@ bo\com\jvargas\veterinaria\datos\model\AtencionEnfermedad.class
 bo\com\jvargas\veterinaria\api\admusuarios\ActionController.class
 bo\com\jvargas\veterinaria\api\inventario\ProductoController.class
 bo\com\jvargas\veterinaria\negocio\ventas\impl\ReciboServiceImpl.class
+bo\com\jvargas\veterinaria\utils\PDFGeneratorRecibo.class
 bo\com\jvargas\veterinaria\datos\model\sistema\dto\MenuDto.class
 bo\com\jvargas\veterinaria\negocio\inventario\impl\CategoriaServiceImpl.class
 bo\com\jvargas\veterinaria\datos\model\sistema\dto\RoleDto$RoleDtoBuilder.class

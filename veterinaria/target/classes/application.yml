@@ -4,7 +4,8 @@ spring:
       max-file-size: 10MB
       max-request-size: 10MB
   profiles:
-    active: development
+    # active: development
+    active: production
   application:
     name: Veterinaria
   freemarker:
@@ -31,6 +32,14 @@ spring:
     # username: postgres
     # password: jrc033
     driverClassName: org.postgresql.Driver
+    hikari:
+      data-source-properties:
+        prepareThreshold: 0
+      maximum-pool-size: 10
+      minimum-idle: 5
+      idle-timeout: 600000
+      connection-timeout: 30000
+      max-lifetime: 1800000
   main:
     allow-bean-definition-overriding: true
 
