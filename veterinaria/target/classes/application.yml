@@ -27,6 +27,9 @@ spring:
     url: jdbc:postgresql://aws-0-sa-east-1.pooler.supabase.com:6543/postgres?sslmode=require
     username: postgres.nhqjossadydpafnnczdh
     password: 52cjOcE1gMi2vec3
+    # url: jdbc:postgresql://localhost:5432/Veterinaria
+    # username: postgres
+    # password: jrc033
     driverClassName: org.postgresql.Driver
   main:
     allow-bean-definition-overriding: true
@@ -34,6 +37,7 @@ spring:
 server:
   error:
     include-message: always
+  # port: 8081
   port: ${PORT:8081}
   compression:
     enabled: true
@@ -41,12 +45,6 @@ server:
     min-response-size: 1024
   http2:
     enabled: true
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: health, info
 
 build:
   version: 0.0.1-SNAPSHOT
