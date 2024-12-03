@@ -34,7 +34,6 @@ spring:
 server:
   error:
     include-message: always
-  # port: 8081
   port: ${PORT:8081}
   compression:
     enabled: true
@@ -42,6 +41,12 @@ server:
     min-response-size: 1024
   http2:
     enabled: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info
 
 build:
   version: @project.version@
