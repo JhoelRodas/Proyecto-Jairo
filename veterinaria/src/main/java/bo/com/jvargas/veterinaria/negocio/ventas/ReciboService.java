@@ -3,7 +3,9 @@ package bo.com.jvargas.veterinaria.negocio.ventas;
 import bo.com.jvargas.veterinaria.datos.model.dto.ReciboDetalleDto;
 import bo.com.jvargas.veterinaria.datos.model.dto.ReciboDto;
 import org.springframework.transaction.annotation.Transactional;
-
+/*agregado */
+import bo.com.jvargas.veterinaria.datos.model.dto.ReporteRequest;
+//
 import java.util.Date;
 import java.util.List;
 
@@ -18,4 +20,7 @@ public interface ReciboService {
     void guardarRecibo(ReciboDetalleDto nuevoRecibo);
 
     void anularRecibo(Long id);
+
+    /*agregado */
+    byte[] generarReporteRecibos(ReporteRequest reporteRequest) throws Exception;
 }

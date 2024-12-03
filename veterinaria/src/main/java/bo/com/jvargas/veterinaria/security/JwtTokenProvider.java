@@ -1,8 +1,8 @@
 package bo.com.jvargas.veterinaria.security;
 
 import bo.com.jvargas.veterinaria.datos.model.sistema.AuthUser;
-import bo.com.jvargas.veterinaria.negocio.sistema.UserService;
-import bo.com.jvargas.veterinaria.negocio.sistema.impl.UserDetailsService;
+import bo.com.jvargas.veterinaria.negocio.admusuarios.UserService;
+import bo.com.jvargas.veterinaria.negocio.admusuarios.impl.UserDetailsService;
 import bo.com.jvargas.veterinaria.utils.OperationException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import io.jsonwebtoken.*;

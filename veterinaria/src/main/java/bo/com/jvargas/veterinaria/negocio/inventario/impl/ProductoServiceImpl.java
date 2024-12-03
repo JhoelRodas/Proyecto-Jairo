@@ -7,7 +7,7 @@ import bo.com.jvargas.veterinaria.datos.model.sistema.enums.TipoProceso;
 import bo.com.jvargas.veterinaria.datos.repository.inventario.CategoriaRepository;
 import bo.com.jvargas.veterinaria.datos.repository.inventario.ProductoRepository;
 import bo.com.jvargas.veterinaria.negocio.inventario.ProductoService;
-import bo.com.jvargas.veterinaria.negocio.sistema.BitacoraService;
+import bo.com.jvargas.veterinaria.negocio.admusuarios.BitacoraService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

@@ -1,12 +1,7 @@
 package bo.com.jvargas.veterinaria.api.inventario;
 
-import bo.com.jvargas.veterinaria.datos.model.Cliente;
-import bo.com.jvargas.veterinaria.datos.model.Producto;
-import bo.com.jvargas.veterinaria.datos.model.dto.ClienteDto;
 import bo.com.jvargas.veterinaria.datos.model.dto.ProductoDto;
-import bo.com.jvargas.veterinaria.datos.model.sistema.enums.TipoProceso;
 import bo.com.jvargas.veterinaria.negocio.inventario.ProductoService;
-import bo.com.jvargas.veterinaria.negocio.sistema.BitacoraService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;

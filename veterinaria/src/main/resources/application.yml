@@ -20,17 +20,13 @@ spring:
     show-sql: false
     hibernate:
       ddlAuto: update
-#      ddlAuto: create
       naming:
         implicitStrategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyJpaCompliantImpl
     open-in-view: false
   datasource:
-    url: jdbc:postgresql://localhost:5432/veterinariadb
-    username: veterinariadb
-    password: veterinariadb
-#    url: jdbc:postgresql://aws-0-sa-east-1.pooler.supabase.com:6543/postgres
-#    username: postgres.tnmbrhmggzcvopzwkdqw
-#    password: jairo221046194
+    url: jdbc:postgresql://aws-0-sa-east-1.pooler.supabase.com:6543/postgres?sslmode=require
+    username: postgres.nhqjossadydpafnnczdh
+    password: 52cjOcE1gMi2vec3
     driverClassName: org.postgresql.Driver
   main:
     allow-bean-definition-overriding: true
@@ -45,6 +41,6 @@ server:
     min-response-size: 1024
   http2:
     enabled: true
-build:
- version: @project.version@
 
+build:
+  version: @project.version@

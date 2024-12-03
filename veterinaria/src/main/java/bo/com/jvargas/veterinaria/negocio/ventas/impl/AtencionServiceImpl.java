@@ -3,15 +3,12 @@ package bo.com.jvargas.veterinaria.negocio.ventas.impl;
 import bo.com.jvargas.veterinaria.datos.model.Atencion;
 import bo.com.jvargas.veterinaria.datos.model.HistorialClinico;
 import bo.com.jvargas.veterinaria.datos.model.Mascota;
-import bo.com.jvargas.veterinaria.datos.model.Usuario;
 import bo.com.jvargas.veterinaria.datos.model.dto.AtencionDto;
 import bo.com.jvargas.veterinaria.datos.model.dto.AtencionServicioDto;
 import bo.com.jvargas.veterinaria.datos.model.sistema.AuthUser;
-import bo.com.jvargas.veterinaria.datos.repository.MascotaRepository;
-import bo.com.jvargas.veterinaria.datos.repository.UsuarioRepository;
+import bo.com.jvargas.veterinaria.datos.repository.ventas.MascotaRepository;
 import bo.com.jvargas.veterinaria.datos.repository.sistema.AuthUserRepository;
 import bo.com.jvargas.veterinaria.datos.repository.ventas.AtencionRepository;
-import bo.com.jvargas.veterinaria.datos.repository.ventas.HistorialClinicoRepository;
 import bo.com.jvargas.veterinaria.negocio.ventas.AtencionService;
 import bo.com.jvargas.veterinaria.negocio.ventas.AtencionServicioService;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**

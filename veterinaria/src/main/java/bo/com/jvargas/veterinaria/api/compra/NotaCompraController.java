@@ -4,20 +4,21 @@ import bo.com.jvargas.veterinaria.datos.model.dto.NotaCompraDetalleDto;
 import bo.com.jvargas.veterinaria.datos.model.dto.NotaCompraDto;
 import bo.com.jvargas.veterinaria.negocio.compra.NotaCompraService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * @author GERSON
  */
 
 @RequiredArgsConstructor
-@Controller
+@RestController
 @RequestMapping("/api/notacompra")
 public class NotaCompraController {
     private final NotaCompraService service;
@@ -35,6 +36,31 @@ public class NotaCompraController {
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body(e.getMessage());
+        }
+    }
+
+
+    @GetMapping("/download-pdf")
+    public ResponseEntity<Map<String, String>>  downloadPDF(@RequestParam("id") Long id) {
+        try {
+            byte[] pdfBytes = service.generarPdfNotaCompra(id);
+            if (pdfBytes == null) {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                        .body(Collections.singletonMap("error", "Error al generar el PDF"));
+            }
+
+            // Convierte el PDF en Base64
+            String pdfBase64 = Base64.getEncoder().encodeToString(pdfBytes);
+
+            // Devuelve el PDF en una respuesta JSON
+            Map<String, String> response = new HashMap<>();
+            response.put("pdf", pdfBase64);
+
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Collections.singletonMap("error", "Error al generar el PDF"));
         }
     }
 

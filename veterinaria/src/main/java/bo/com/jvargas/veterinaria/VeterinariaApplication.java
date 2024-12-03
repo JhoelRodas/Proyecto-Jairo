@@ -5,10 +5,7 @@ import java.net.UnknownHostException;
 import java.time.ZoneId;
 import java.util.TimeZone;
 
-import bo.com.jvargas.veterinaria.datos.model.Usuario;
-import bo.com.jvargas.veterinaria.datos.repository.MascotaRepository;
-import bo.com.jvargas.veterinaria.datos.repository.UsuarioRepository;
-import bo.com.jvargas.veterinaria.negocio.sistema.InitializerService;
+import bo.com.jvargas.veterinaria.negocio.admusuarios.InitializerService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -27,10 +24,12 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @RequiredArgsConstructor
-@EnableJpaRepositories(basePackages = {"bo.com.jvargas.veterinaria.datos.repository"})
-@EntityScan(basePackages = {"bo.com.jvargas.veterinaria.datos.model"})
-@ComponentScan(basePackages = {"bo.com.jvargas", "bo.com.jvargas.veterinaria.api", "bo.com.jvargas.veterinaria.security", "bo.com.jvargas.veterinaria.api.sistema"})
-@SpringBootApplication(scanBasePackages = {"bo.com.jvargas", "bo.com.jvargas.veterinaria", "bo.com.jvargas.veterinaria.api.sistema"})
+@EnableJpaRepositories(basePackages = { "bo.com.jvargas.veterinaria.datos.repository" })
+@EntityScan(basePackages = { "bo.com.jvargas.veterinaria.datos.model" })
+@ComponentScan(basePackages = { "bo.com.jvargas", "bo.com.jvargas.veterinaria.api",
+        "bo.com.jvargas.veterinaria.security", "bo.com.jvargas.veterinaria.api.admusuarios" })
+@SpringBootApplication(scanBasePackages = { "bo.com.jvargas", "bo.com.jvargas.veterinaria",
+        "bo.com.jvargas.veterinaria.api.admusuarios" })
 @EnableAsync
 @EnableWebSecurity
 @Slf4j
@@ -71,11 +70,11 @@ public class VeterinariaApplication implements CommandLineRunner {
             log.warn("The host name could not be determined, using `localhost` as fallback");
         }
         log.info("\n----------------------------------------------------------\n\t" +
-                        "Application '{}' is running! Access URLs:\n\t" +
-                        "Local: \t\t{}://localhost:{}{}\n\t" +
-                        "External: \t{}://{}:{}{}\n\t" +
-                        "Profile(s): \t{}\n" +
-                        "----------------------------------------------------------",
+                "Application '{}' is running! Access URLs:\n\t" +
+                "Local: \t\t{}://localhost:{}{}\n\t" +
+                "External: \t{}://{}:{}{}\n\t" +
+                "Profile(s): \t{}\n" +
+                "----------------------------------------------------------",
                 env.getProperty("spring.application.name"),
                 protocol,
                 serverPort,

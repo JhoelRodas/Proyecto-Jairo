@@ -1,0 +1,46 @@
+spring:
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+  profiles:
+    active: development
+  application:
+    name: Veterinaria
+  freemarker:
+    enabled: false
+  jpa:
+    properties:
+      hibernate:
+        formatSql: true
+        jdbc:
+          lob:
+            non_contextual_creation: true
+    databasePlatform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: false
+    hibernate:
+      ddlAuto: update
+      naming:
+        implicitStrategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyJpaCompliantImpl
+    open-in-view: false
+  datasource:
+    url: jdbc:postgresql://aws-0-sa-east-1.pooler.supabase.com:6543/postgres?sslmode=require
+    username: postgres.nhqjossadydpafnnczdh
+    password: 52cjOcE1gMi2vec3
+    driverClassName: org.postgresql.Driver
+  main:
+    allow-bean-definition-overriding: true
+
+server:
+  error:
+    include-message: always
+  port: 8081
+  compression:
+    enabled: true
+    mime-types: text/html,text/xml,text/plain,text/css,text/javascript,application/javascript,application/json
+    min-response-size: 1024
+  http2:
+    enabled: true
+
+build:
+  version: 0.0.1-SNAPSHOT
